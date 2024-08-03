@@ -32,12 +32,26 @@
 
 <script setup>
 defineProps({
+    /**
+     * The title of the note.
+     *
+     * @type {String}
+     * @default 'Note Title'
+     */
     title: {
         type: String,
+        default: 'Note Title',
     },
+
+    /**
+     * The background color of the note.
+     *
+     * @type {String}
+     * @default 'bg-blue-400'
+     */
     bgColor: {
         type: String,
-        default: 'gray',
+        default: 'bg-blue-400',
     },
 })
 </script>
