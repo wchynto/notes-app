@@ -30,7 +30,8 @@
                                 clip-rule="evenodd" />
                         </svg>
 
-                        <span class="ms-3">Todo List</span>
+                        <span class="ms-3">Todo List</span> <span class="ml-2 text-sm text-gray-500">(Coming
+                            soon)</span>
                     </a>
                 </li>
             </ul>

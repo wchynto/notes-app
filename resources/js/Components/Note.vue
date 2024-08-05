@@ -1,23 +1,23 @@
 <template>
-    <div class="p-6 h-72 rounded inline-grid gap-0" :class="bgColor">
+    <div class="inline-grid gap-0 p-6 rounded shadow h-72" :class="bgColor">
         <div class="self-start">
-            <h1 class="font-bold text-xl mb-1">{{ title }}</h1>
+            <h1 class="mb-1 text-xl font-bold">{{ title }}</h1>
             <p class="line-clamp-6">
                 <slot></slot>
             </p>
         </div>
         <div class="self-end mt-2">
             <hr class="mb-4 h-0.5 border-none  bg-gray-800">
-            <div class="flex w-full gap-4 justify-end">
-                <Link href="#">
-                <svg class="w-6 h-6 text-gray-800 dark:text-white hover:text-red-600" aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                    <path fill-rule="evenodd"
-                        d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
-                        clip-rule="evenodd" />
-                </svg>
-                </Link>
-                <Link href="#">
+            <div class="flex justify-end w-full gap-4">
+                <button @click="deleteNote(noteId)"><svg
+                        class="w-6 h-6 text-gray-800 dark:text-white hover:text-red-600" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path fill-rule="evenodd"
+                            d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
+                            clip-rule="evenodd" />
+                    </svg></button>
+                <Link :href="updateUrl" method="get">
                 <svg class="w-6 h-6 text-gray-800 dark:text-white hover:text-blue-600" aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path fill-rule="evenodd"
@@ -32,26 +32,43 @@
 
 <script setup>
 defineProps({
-    /**
-     * The title of the note.
-     *
-     * @type {String}
-     * @default 'Note Title'
-     */
+    noteId: {
+        type: String,
+        required: true
+    },
     title: {
         type: String,
         default: 'Note Title',
     },
-
-    /**
-     * The background color of the note.
-     *
-     * @type {String}
-     * @default 'bg-blue-400'
-     */
     bgColor: {
         type: String,
         default: 'bg-blue-400',
     },
+    updateUrl: {
+        type: String,
+        required: true,
+    },
 })
+
+import { inject } from 'vue'
+import { router } from '@inertiajs/vue3';
+
+const swal = inject('$swal')
+
+const deleteNote = (noteId) => {
+    swal.fire({
+        title: 'Peringatan!',
+        text: 'Data yang dihapus tidak dapat dipulihkan',
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: 'Batal',
+        confirmButtonText: "Hapus",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+    }).then((confirm) => {
+        if (confirm.isConfirmed) {
+            router.delete(route('notes.destroy', noteId))
+        }
+    });
+}
 </script>

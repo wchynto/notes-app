@@ -15,7 +15,7 @@ return new class extends Migration
             $table->ulid()->primary();
             $table->string('title', 200);
             $table->text('content')->nullable();
-            $table->enum('color', ['red', 'blue', 'yellow', 'green', 'purple', 'pink', 'gray', 'white'])->default('white');
+            $table->string('color', 20);
             $table->foreignUlid('user_ulid')->constrained('users', 'ulid')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
