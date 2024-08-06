@@ -12,4 +12,11 @@
 <script setup>
 import Navbar from '@/Components/Navbar.vue'
 import Sidebar from '@/Components/Sidebar.vue';
+
+import { onMounted } from 'vue'
+import { initFlowbite } from 'flowbite';
+
+onMounted(() => {
+    initFlowbite();
+})
 </script>

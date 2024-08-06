@@ -44,7 +44,7 @@ class NoteController extends Controller
     public function store(StoreNoteRequest $request)
     {
         $this->noteService->create(NoteDTO::storeRequest($request));
-        return redirect()->route('notes.index')->with('success', 'Note berhasil ditambah');;
+        return redirect()->route('notes.index')->with('success', 'Note berhasil ditambah');
     }
 
     /**
