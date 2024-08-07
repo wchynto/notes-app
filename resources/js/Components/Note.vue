@@ -1,7 +1,7 @@
 <template>
-    <div class="inline-grid gap-0 p-6 rounded shadow h-72" :class="bgColor">
+    <div class="inline-grid gap-0 p-6 rounded shadow h-72" :class="props.bgColor">
         <div class="self-start">
-            <h1 class="mb-1 text-xl font-bold">{{ title }}</h1>
+            <h1 class="mb-1 text-xl font-bold">{{ props.title }}</h1>
             <p class="line-clamp-6">
                 <slot></slot>
             </p>
@@ -17,7 +17,7 @@
                             d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
                             clip-rule="evenodd" />
                     </svg></button>
-                <Link :href="updateUrl" method="get">
+                <Link :href="props.updateUrl" method="get">
                 <svg class="w-6 h-6 text-gray-800 dark:text-white hover:text-blue-600" aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path fill-rule="evenodd"
@@ -31,7 +31,10 @@
 </template>
 
 <script setup>
-defineProps({
+import { inject } from 'vue'
+import { router } from '@inertiajs/vue3';
+
+const props = defineProps({
     noteId: {
         type: String,
         required: true
@@ -50,9 +53,6 @@ defineProps({
     },
 })
 
-import { inject } from 'vue'
-import { router } from '@inertiajs/vue3';
-
 const swal = inject('$swal')
 
 const deleteNote = (noteId) => {
@@ -67,7 +67,7 @@ const deleteNote = (noteId) => {
         cancelButtonColor: "#d33",
     }).then((confirm) => {
         if (confirm.isConfirmed) {
-            router.delete(route('notes.destroy', noteId))
+            router.delete(route('notes.destroy', props.noteId))
         }
     });
 }

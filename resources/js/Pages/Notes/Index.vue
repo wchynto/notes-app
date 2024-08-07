@@ -16,10 +16,6 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import Note from '@/Components/Note.vue';
 import Breadcrumb from '@/Components/Breadcrumb.vue';
 
-import { inject } from 'vue'
-
-const swal = inject('$swal')
-
 const props = defineProps({
     title: {
         type: String,
@@ -32,6 +28,4 @@ const props = defineProps({
 });
 
 const mainCategory = { title: props.title, url: route(route().current()) };
-
-
 </script>

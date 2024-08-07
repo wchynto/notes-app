@@ -1,11 +1,11 @@
 <template>
-    <div class="flex w-screen h-screen items-center justify-center bg-blue-600 lg:bg-white">
-        <div class="bg-blue-600 w-full h-screen hidden items-center justify-center px-24 lg:flex">
-            <div class="text-center  w-3/4">
-                <h1 class="text-white text-6xl font-bold mb-6">
+    <div class="flex items-center justify-center w-screen h-screen bg-blue-600 lg:bg-white">
+        <div class="items-center justify-center hidden w-full h-screen px-24 bg-blue-600 lg:flex">
+            <div class="w-3/4 text-center">
+                <h1 class="mb-6 text-6xl font-bold text-white">
                     INOTED
                 </h1>
-                <h2 class="text-white text-2xl">
+                <h2 class="text-2xl text-white">
                     Catat, simpan, temukan. Aplikasi jurnal digital yang membantumu mengatur pikiran dan kenangan.
                     Dengan
                     fitur pengingat, pencarian cerdas, dan tampilan yang menarik, INOTED adalah sahabatmu dalam mencatat
@@ -13,9 +13,9 @@
                 </h2>
             </div>
         </div>
-        <div class="w-4/5 h-screen flex flex-col justify-center items-center">
-            <h1 class="mb-8 text-3xl italic hidden lg:block">"Your personal diary, <br>always there for you."</h1>
-            <div class="mb-6 flex flex-col justify-center items-center text-center lg:hidden text-white">
+        <div class="flex flex-col items-center justify-center w-4/5 h-screen">
+            <h1 class="hidden mb-8 text-3xl italic lg:block">"Your personal diary, <br>always there for you."</h1>
+            <div class="flex flex-col items-center justify-center mb-6 text-center text-white lg:hidden">
                 <h1 class="mb-2 text-3xl font-bold">INOTED</h1>
                 <h2 class="text-xl italic">"Your personal diary always there for you."</h2>
             </div>
@@ -26,47 +26,48 @@
                 <div
                     class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
                     <form class="space-y-6" @submit.prevent="submit">
-                        <h5 class="text-xl text-gray-900 dark:text-white font-bold text-center">Register</h5>
+                        <h5 class="text-xl font-bold text-center text-gray-900 dark:text-white">Register</h5>
                         <div>
-                            <Alert v-if="errors.name" type="alert">
-                                {{ errors.name }}
-                            </Alert>
                             <FormLabel for="name">Nama</FormLabel>
-                            <FormInput :modelValue="form.name" id="name" type="text" name="name"
+                            <FormInput class="mb-4" :modelValue="form.name" id="name" type="text" name="name"
                                 placeholder="Asep Setiawan" v-model="form.name" required>
                             </FormInput>
+                            <Alert v-if="errors.name" type="danger">
+                                {{ errors.name }}
+                            </Alert>
                         </div>
                         <div>
-                            <Alert v-if="errors.email" type="alert">
-                                {{ errors.email }}
-                            </Alert>
                             <FormLabel for="email">Email</FormLabel>
-                            <FormInput id="email" type="email" name="email" placeholder="asep@example.com"
+                            <FormInput class="mb-4" id="email" type="email" name="email" placeholder="asep@example.com"
                                 v-model="form.email" required>
                             </FormInput>
+                            <Alert v-if="errors.email" type="danger">
+                                {{ errors.email }}
+                            </Alert>
                         </div>
                         <div>
-                            <Alert v-if="errors.password" type="alert">
-                                {{ errors.password }}
-                            </Alert>
                             <FormLabel for="password">Password</FormLabel>
-                            <FormInput id="password" type="password" name="password" placeholder="••••••••"
+                            <FormInput class="mb-4" id="password" type="password" name="password" placeholder="••••••••"
                                 v-model="form.password" required>
                             </FormInput>
                             <ul class="max-w-md mt-2 space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
                                 <li>
                                     Minimal 8 karakter
                                 </li>
+                                <Alert v-if="errors.password" type="danger">
+                                    {{ errors.password }}
+                                </Alert>
                             </ul>
                         </div>
                         <div>
-                            <Alert v-if="errors.confirmation_password" type="alert">
+                            <FormLabel for="confirmation_password">Konfirmasi password</FormLabel>
+                            <FormInput class="mb-4" id="confirmation_password" type="password"
+                                name="confirmation_password" placeholder="••••••••" v-model="form.confirmation_password"
+                                required>
+                            </FormInput>
+                            <Alert v-if="errors.confirmation_password" type="danger">
                                 {{ errors.confirmation_password }}
                             </Alert>
-                            <FormLabel for="confirmation_password">Konfirmasi password</FormLabel>
-                            <FormInput id="confirmation_password" type="password" name="confirmation_password"
-                                placeholder="••••••••" v-model="form.confirmation_password" required>
-                            </FormInput>
                         </div>
                         <PrimaryButton class="w-full" type="submit">Daftar sekarang</PrimaryButton>
                         <div class="text-sm font-medium text-gray-500 dark:text-gray-300">

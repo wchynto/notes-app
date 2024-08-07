@@ -4,12 +4,3 @@
         <slot></slot>
     </select>
 </template>
-
-<script setup>
-defineProps({
-    modelValue: {
-        type: String,
-        required: true
-    },
-})
-</script>
