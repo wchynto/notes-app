@@ -13,7 +13,7 @@ class Note extends Model
     protected $table = 'notes';
     protected $primaryKey = 'ulid';
     protected $keyType = 'string';
-    protected $fillable = ['title', 'content', 'color'];
+    protected $fillable = ['title', 'content', 'color', 'user_ulid'];
 
     protected static $colors = [
         'bg-green-300',
@@ -33,7 +33,6 @@ class Note extends Model
         static::creating(function ($model) {
             $model->ulid = (string) Ulid::generate();
             $model->color = self::$colors[array_rand(self::$colors)];
-            $model->user_ulid = auth()->user()->ulid;
         });
     }
 }

@@ -26,12 +26,18 @@ class NoteService
 
     public function create(NoteDTO $dto)
     {
-        return $this->noteRepository->create($dto->toArray());
+        $note = $dto->toArray();
+        $note['user_ulid'] = auth()->user()->ulid;
+
+        return $this->noteRepository->create($note);
     }
 
     public function update(NoteDTO $dto, $id)
     {
-        return $this->noteRepository->update($dto->toArray(), $id);
+        $note = $dto->toArray();
+        $note['user_ulid'] = auth()->user()->ulid;
+
+        return $this->noteRepository->update($note, $id);
     }
 
     public function delete($id)
