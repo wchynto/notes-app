@@ -31,8 +31,9 @@
 </template>
 
 <script setup>
-import { inject } from 'vue'
-import { router } from '@inertiajs/vue3';
+import { computed } from 'vue';
+import { router, usePage } from '@inertiajs/vue3';
+import { alertConfirm, alertSuccess } from '../Helpers/alert';
 
 const props = defineProps({
     noteId: {
@@ -53,22 +54,17 @@ const props = defineProps({
     },
 })
 
-const swal = inject('$swal')
+const success = computed(() => usePage().props.flash.success)
 
-const deleteNote = (noteId) => {
-    swal.fire({
-        title: 'Peringatan!',
-        text: 'Data yang dihapus tidak dapat dipulihkan',
-        icon: 'warning',
-        showCancelButton: true,
-        cancelButtonText: 'Batal',
-        confirmButtonText: "Hapus",
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-    }).then((confirm) => {
+const deleteNote = () => {
+    alertConfirm('Peringatan!', 'Note Yang dihapus tidak dapat dipulihkan').then((confirm) => {
         if (confirm.isConfirmed) {
-            router.delete(route('notes.destroy', props.noteId))
+            router.delete(route('notes.destroy', props.noteId), {
+                onSuccess: () => {
+                    alertSuccess('Berhasil!', success.value)
+                }
+            })
         }
-    });
+    })
 }
 </script>
