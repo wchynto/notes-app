@@ -44,7 +44,7 @@ class NoteController extends Controller
     public function store(StoreNoteRequest $request)
     {
         $this->noteService->create(NoteDTO::storeRequest($request));
-        return redirect()->route('notes.index')->with('success', 'Note berhasil ditambah');
+        return redirect()->route('notes.index')->with('success', 'Catatan berhasil disimpan');
     }
 
     /**
@@ -52,7 +52,7 @@ class NoteController extends Controller
      */
     public function show(string $id)
     {
-        return Inertia('Notes/Show');
+        //
     }
 
     /**
@@ -73,7 +73,7 @@ class NoteController extends Controller
     public function update(UpdateNoteRequest $request, string $id)
     {
         $this->noteService->update(NoteDTO::updateRequest($request), $id);
-        return redirect()->route('notes.index')->with('success', 'Note berhasil diubah');
+        return redirect()->route('notes.index')->with('success', 'Catatan berhasil diperbarui');
     }
 
     /**
@@ -82,6 +82,6 @@ class NoteController extends Controller
     public function destroy(string $id)
     {
         $this->noteService->delete($id);
-        return back()->with('Note berhasil dihapus');
+        return back()->with('success', 'Catatan berhasil dihapus');
     }
 }

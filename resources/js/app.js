@@ -5,9 +5,6 @@ import { createApp, h } from 'vue'
 import { createInertiaApp, Head, Link } from '@inertiajs/vue3'
 import {ZiggyVue} from '../../vendor/tightenco/ziggy/dist'
 
-import VueSweetalert2 from 'vue-sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
-
 createInertiaApp({
   resolve: name => {
     const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
@@ -17,7 +14,7 @@ createInertiaApp({
     createApp({ render: () => h(App, props) })
     .component('Head', Head)
     .component('Link', Link)
-      .use(plugin).use(ZiggyVue).use(VueSweetalert2)
+      .use(plugin).use(ZiggyVue)
       .mount(el)
   },
 })

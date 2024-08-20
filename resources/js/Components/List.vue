@@ -1,15 +1,16 @@
 <template>
-    <div class="inline-grid gap-0 p-6 rounded shadow h-72" :class="props.bgColor">
+    <div class="inline-grid gap-0 p-6 rounded shadow" :class="props.bgColor">
         <div class="self-start">
-            <h1 class="mb-1 text-xl font-bold">{{ props.title }}</h1>
-            <p class="line-clamp-6">
-                <slot></slot>
-            </p>
+            <div class="mb-4">
+                <h1 class="text-xl font-bold">{{ props.title }}</h1>
+                <p>{{ props.description }}</p>
+            </div>
+            <slot></slot>
         </div>
         <div class="self-end mt-2">
             <hr class="mb-4 h-0.5 border-none  bg-gray-800">
             <div class="flex justify-end w-full gap-4">
-                <button @click="deleteNote(noteId)"><svg
+                <button @click="deleteList(listId)"><svg
                         class="w-6 h-6 text-gray-800 dark:text-white hover:text-red-600" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                         viewBox="0 0 24 24">
@@ -36,13 +37,17 @@ import { router, usePage } from '@inertiajs/vue3';
 import { alertConfirm, alertSuccess } from '../Helpers/alert';
 
 const props = defineProps({
-    noteId: {
+    listId: {
         type: String,
         required: true
     },
     title: {
         type: String,
-        default: 'Note Title',
+        required: true,
+    },
+    description: {
+        type: String,
+        required: true,
     },
     bgColor: {
         type: String,
@@ -56,10 +61,10 @@ const props = defineProps({
 
 const success = computed(() => usePage().props.flash.success)
 
-const deleteNote = () => {
-    alertConfirm('Peringatan!', 'Note yang dihapus tidak dapat dipulihkan').then((confirm) => {
+const deleteList = (listId) => {
+    alertConfirm('Peringatan!', 'List yang dihapus tidak dapat dipulihkan').then((confirm) => {
         if (confirm.isConfirmed) {
-            router.delete(route('notes.destroy', props.noteId), {
+            router.delete(route('lists.destroy', listId), {
                 onSuccess: () => {
                     alertSuccess('Berhasil!', success.value)
                 }

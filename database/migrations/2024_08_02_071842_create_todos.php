@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('todos', function (Blueprint $table) {
             $table->ulid()->primary();
             $table->string('title', 200);
-            $table->text('description')->nullable();
+            $table->boolean('is_completed')->default(false);
+            $table->dateTime('completed_at')->nullable();
             $table->foreignUlid('list_ulid')->constrained('lists', 'ulid')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });

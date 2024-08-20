@@ -45,10 +45,9 @@ import FormLabel from '@/Components/FormLabel.vue';
 import FormInput from '@/Components/FormInput.vue';
 import FormTexarea from '@/Components/FormTexarea.vue';
 
-import { reactive, computed, inject } from 'vue';
+import { reactive, computed } from 'vue';
 import { router, usePage } from '@inertiajs/vue3';
-
-const swal = inject('$swal')
+import { alertSuccess } from '../../Helpers/alert';
 
 const props = defineProps({
     title: {
@@ -86,7 +85,7 @@ const form = reactive({
 const submit = () => {
     router.put(route('notes.update', props.note.ulid), form, {
         onSuccess: () => {
-            swal.fire('Berhasil', success.value, 'success')
+            alertSuccess('Berhasil!', success.value);
         },
     });
 }

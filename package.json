@@ -18,6 +18,6 @@
         "@inertiajs/vue3": "^1.2.0",
         "@vitejs/plugin-vue": "^5.1.2",
         "flowbite": "^2.4.1",
-        "vue-sweetalert2": "^5.0.11"
+        "sweetalert2": "^11.12.4"
     }
 }

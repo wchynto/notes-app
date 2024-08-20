@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ListController;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\TodoController;
 use App\Http\Controllers\UserSessionController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,4 +19,6 @@ Route::post('/logout', [UserSessionController::class, 'logout'])->name('logout')
 
 Route::group(['middleware' => ['auth', 'prevent-back-history']], function () {
     Route::resource('notes', NoteController::class);
+    Route::resource('lists', ListController::class);
+    Route::resource('lists.todos', TodoController::class)->shallow()->only('destroy');
 });
